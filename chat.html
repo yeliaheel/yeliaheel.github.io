@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only Real Talk Here - Chat Interface</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <!-- Header section -->
+    <div class="header">
+        <div class="title">Only Real Talk Here</div>
+        <div class="conversation-helper">
+            <button id="conversationHelperBtn" class="helper-btn">Having trouble starting a conversation?</button>
+            
+            <!-- Prompts popup (hidden by default) -->
+            <div id="promptsPopup" class="prompts-popup">
+                <div class="popup-header">
+                    <div class="popup-title">Conversation Starters</div>
+                    <button id="closePopupBtn" class="close-popup-btn">✕</button>
+                </div>
+                <ul id="promptsList" class="prompts-list">
+                    <!-- Prompts will be added here by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main content with two columns -->
+    <div class="main-container">
+        <!-- Left column - information -->
+        <div class="left-column">
+            <div class="anonymous-notice">
+                It's <span class="keyword">anonymous</span>, and nothing you say here
+                will be saved. So don't worry—open up
+                and share your thoughts freely!
+                <br><br>
+                But remember: <span class="keyword">respect is essential</span>.<br>
+                <div class="warning-text">
+                    Harassment, hate speech, or any form of abusive behavior is not tolerated and may result in restricted access to the chat.
+                </div>
+            </div>
+            
+            <div class="leave-chat">
+                <button id="leaveChat" class="leave-chat-btn">Leave the chat</button>
+            </div>
+        </div>
+        
+        <!-- Right column - chat -->
+        <div class="right-column">
+            <!-- Chat message area -->
+            <div class="chat-area">
+                <div class="message-area" id="messageArea">
+                    <!-- Messages will be added here by JavaScript -->
+                </div>
+                
+                <!-- Chairs and typing area at the bottom -->
+                <div class="chat-bottom">
+                    <!-- Chairs -->
+                    <div class="chairs-container">
+                        <div class="chair left-chair" id="chair1">
+                            <img src="img/chair1.png" alt="Left chair" class="chair-img">
+                            <div class="typing-indicator" id="typingIndicator">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="chair right-chair" id="chair2">
+                            <img src="img/chair2.png" alt="Right chair" class="chair-img">
+                        </div>
+                    </div>
+                    
+                    <!-- Input area -->
+                    <div class="input-container">
+                        <input type="text" id="messageInput" placeholder="Type a message...">
+                        <button id="sendButton">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="chat.js"></script>
+</body>
+</html>
