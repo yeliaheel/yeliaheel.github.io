@@ -1,0 +1,484 @@
+@font-face {
+  font-family: 'ABCDiatypeMono';
+  src: url('fonts/ABCDiatypeMono-Light-Trial.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cosplay';
+  src: url('fonts/Cosplay-Trial-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Suisse';
+  src: url('fonts/SuisseScreen-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'ABCDiatypeMono', sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  min-height: 100vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* 방 제목 중앙 배치 */
+.room-title-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.room-title-center h2 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #383838;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+/* 사용자 지정 제목 스타일 */
+.room-custom-title {
+  font-size: 18px;
+  color: #383838;
+  min-height: 20px;
+  min-width: 100px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.room-custom-title:empty:before {
+  content: attr(placeholder);
+  color: #aaa;
+  font-style: italic;
+}
+
+.room-custom-title:focus {
+  background-color: rgba(255, 255, 255, 0.9);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.3);
+}
+
+/* 사용자 지정 제목 표시 (목록 화면) */
+.custom-title-display {
+  font-size: 16px;
+  color: #383838;
+  margin: 0 0 8px;
+  min-height: 18px;
+  padding: 2px 5px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* 가장자리 배치 컨테이너 */
+.rectangular-items-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 메모리 아이템 스타일 수정 */
+.memory-item {
+  padding: 3px 3px;
+  cursor: pointer;
+  max-width: 100px;
+  transition: all 0.3s ease;
+  filter: blur(1px);
+  z-index: 5;
+  position: absolute;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.memory-item:hover {
+  filter: blur(0);
+  z-index: 20;
+  transform: scale(1.1) !important;
+}
+
+/* PDF 내보내기시 블러 제거 */
+.export-mode .memory-item,
+.memory-item.no-blur {
+  filter: blur(0) !important;
+}
+
+.item-number {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #383838;
+}
+
+.memory-item.text .item-content {
+  max-height: 100px;
+  overflow: hidden;
+  word-break: break-word;
+  font-size: 12px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+.memory-item.image {
+  max-width: 100px;
+}
+
+.memory-item.image .item-image {
+  max-width: 100%;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-top: 5px;
+}
+
+.item-source {
+  font-size: 10px;
+  color: #999;
+  text-align: right;
+  padding-top: 5px;
+  border-top: 1px solid #eee;
+  margin-top: 5px;
+}
+
+/* 중앙 하단 버튼 스타일 */
+.center-buttons {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 30;
+}
+
+.center-buttons button {
+  background-color: #383838;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'ABCDiatypeMono', sans-serif;
+  transition: background-color 0.2s;
+  font-size: 12px;
+}
+
+.center-buttons button:hover {
+  background-color: #555;
+}
+
+/* PDF 내보내기 버튼 스타일 */
+#exportPdfBtn {
+  background-color: #34a853;
+}
+
+#exportPdfBtn:hover {
+  background-color: #2d8e47;
+}
+
+/* 기존 스타일은 유지하되 필요한 부분만 수정 */
+.room-title {
+  text-align: center;
+  margin: 40px 0;
+  padding-bottom: 20px;
+  font-size: 20px;
+}
+
+.search-terms-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.search-term-item {
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  filter: blur(1px);
+}
+
+.search-term-item:hover {
+  transform: translateY(-5px);
+  filter: blur(0);
+}
+
+.term-text {
+  font-size: 16px;
+  word-break: break-word;
+  text-align: center;
+}
+
+.term-info {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.room-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+  justify-content: center;
+}
+
+.back-button {
+  background-color: #383838;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-family: 'ABCDiatypeMono';
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #555;
+}
+
+/* 빈 상태 메시지 */
+.empty-state, .empty-room {
+  text-align: center;
+  color: #888;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* 툴팁 */
+.tooltip {
+  position: fixed;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  max-width: 300px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.tooltip-content {
+  font-size: 12px;
+}
+
+.tooltip-url {
+  display: block;
+  color: #aaa;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+  margin-top: 5px;
+}
+
+/* 메모리 꽉찼을 때 경고 */
+.memory-warning {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 77, 77, 0.8);
+  z-index: 30;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* PDF 내보내기를 위한 블러 제거 클래스 */
+.memory-item.blur-removed {
+  filter: blur(0) !important;
+  transition: none !important;
+}
+
+.memory-item.blur-removed:hover {
+  transform: none !important;
+  filter: blur(0) !important;
+}
+
+/* 방 제목 중앙 배치 개선 */
+.room-title-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  width: auto;
+  min-width: 200px;
+  pointer-events: auto;
+}
+
+/* PDF 내보내기 로딩 메시지 */
+.pdf-export-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  z-index: 9999;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* 인쇄 시 방 제목 중앙 배치 유지 */
+@media print {
+  .room-title-center {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    z-index: 10 !important;
+    display: block !important;
+    width: auto !important;
+    min-width: 200px !important;
+  }
+  
+  .room-title-center h2 {
+    margin-bottom: 5px !important;
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    color: #383838 !important;
+  }
+  
+  .room-custom-title {
+    min-height: 20px !important;
+    font-size: 16px !important;
+    color: #383838 !important;
+  }
+  
+  .rectangular-items-container {
+    position: relative !important;
+    width: 100% !important;
+    height: 100vh !important;
+  }
+  
+  .export-message, 
+  .center-buttons,
+  .back-button,
+  .memory-warning {
+    display: none !important;
+  }
+  
+  .memory-item {
+    filter: blur(0) !important;
+    transition: none !important;
+  }
+  
+  .memory-item:hover {
+    transform: none !important;
+  }
+}
+
+/* 기존 버튼 숨기기 */
+.controls {
+  display: none !important;
+}
+
+/* 모바일 대응 */
+@media (max-width: 1366px) {
+  .memory-item {
+    max-width: 90px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .room-title-center h2 {
+    font-size: 18px;
+  }
+  
+  .memory-item {
+    max-width: 80px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .room-title-center h2 {
+    font-size: 16px;
+  }
+  
+  .memory-item {
+    max-width: 70px;
+  }
+  
+  .center-buttons {
+    bottom: 15px;
+  }
+  
+  .center-buttons button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .room-title-center h2 {
+    font-size: 14px;
+  }
+  
+  .memory-item {
+    max-width: 90px;
+  }
+  
+  .center-buttons button {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 320px) {
+  .room-title-center h2 {
+    font-size: 12px;
+  }
+  
+  .memory-item {
+    max-width: 120px;
+  }
+  
+  .center-buttons {
+    bottom: 10px;
+  }
+  
+  .center-buttons button {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Memory Palace Viewer</title>
+  <link rel="stylesheet" href="viewer.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+  <div id="memoryPalace" class="memory-palace">
+    <!-- 여기에 메모리 팰리스 아이템이 동적으로 추가됩니다 -->
+  </div>
+  
+  <!-- 툴팁 -->
+  <div id="tooltip" class="tooltip">
+    <div class="tooltip-content">
+      <p id="tooltipText"></p>
+      <div class="tooltip-url" id="tooltipUrl"></div>
+    </div>
+  </div>
+  
+  <!-- 버튼 컨테이너 (처음에는 숨겨짐) -->
+  <div class="center-buttons" style="display: none;">
+    <button id="exportPdfBtn">Export PDF</button>
+  </div>
+  
+  <script src="utils.js"></script>
+  <script src="viewer.js"></script>
+</body>
+</html>

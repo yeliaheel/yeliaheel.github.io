@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Memory Palace Collector</title>
+  <style>
+    @font-face {
+      font-family: 'ABCDiatypeMono';
+      src: url('fonts/ABCDiatypeMono-Light-Trial.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Cosplay';
+      src: url('fonts/Cosplay-Trial-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Suisse';
+      src: url('fonts/SuisseScreen-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    body {
+      width: 300px;
+      font-family: 'ABCDiatypeMono';
+      margin: 0;
+      padding: 10px;
+    }
+    
+    .title {
+      font-family: 'ABCDiatypeMono';
+      font-size: 15px;
+      color: #383838;
+      margin-top: 0;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    .stats {
+      margin: 15px 0;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 5px;
+    }
+    
+    button {
+      background-color: white;
+      color: #383838;
+      border: 1px solid #383838;
+      border-radius: 50px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'ABCDiatypeMono';
+      transition: background-color 0.2s;
+      white-space: nowrap;
+      flex: 1;
+    }
+    
+    button:hover {
+      background-color: #383838;
+      color: white;
+    }
+    
+    button.danger {
+      background-color: white;
+    }
+    
+    button.danger:hover {
+      background-color: #ff4d4d;
+      border-color: #ff4d4d;
+      color: white;
+    }
+
+    button.organize {
+      background-color: white;
+    }
+    
+    button.organize:hover {
+      background-color: #4285f4;
+      border-color: #4285f4;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Memory Palace Collector</div>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <span>Text</span>
+      <span class="stat-value" id="textCount">0</span>
+    </div>
+    <div class="stat-item">
+      <span>Image</span>
+      <span class="stat-value" id="imageCount">0</span>
+    </div>
+    <div class="stat-item">
+      <span>Room</span>
+      <span class="stat-value" id="groupCount">0</span>
+    </div>
+  </div>
+  
+  <div class="buttons">
+    <button id="viewBtn">View</button>
+    <button id="migrateBtn" class="organize">Organize</button>
+    <button id="clearBtn" class="danger">Clear</button>
+  </div>
+  
+  <script src="utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

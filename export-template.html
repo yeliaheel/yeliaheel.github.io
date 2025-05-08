@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Memory Palace</title>
+  <style>
+    /* 여기에 스타일이 삽입됩니다 */
+    
+    /* 기본 스타일 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: sans-serif;
+      background-color: white;
+      color: #333;
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    
+    .title-container {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+    }
+    
+    .title {
+      font-size: 50px;
+      font-weight: 400;
+      color: #383838;
+    }
+    
+    .memory-palace {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      overflow: hidden;
+    }
+    
+    .room {
+      position: absolute;
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .room:hover {
+      z-index: 10;
+      transform: scale(1.05);
+    }
+    
+    .room-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    .item {
+      position: relative;
+      margin: 5px;
+      padding: 10px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      filter: blur(3px);
+      overflow: hidden;
+    }
+    
+    .item:hover {
+      filter: blur(0);
+    }
+    
+    .item.text {
+      max-width: 250px;
+      word-wrap: break-word;
+    }
+    
+    .item.image img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .origin-indicator {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #4285f4;
+      border: 2px solid white;
+    }
+    
+    /* 방별 색상 */
+    .color-1 .origin-indicator { background-color: #4285f4; }
+    .color-2 .origin-indicator { background-color: #34a853; }
+    .color-3 .origin-indicator { background-color: #fbbc05; }
+    .color-4 .origin-indicator { background-color: #ea4335; }
+    .color-5 .origin-indicator { background-color: #673ab7; }
+    .color-6 .origin-indicator { background-color: #ff5722; }
+    .color-7 .origin-indicator { background-color: #795548; }
+    .color-8 .origin-indicator { background-color: #607d8b; }
+  </style>
+</head>
+<body>
+  <div class="title-container">
+    <div class="title">Memory palace</div>
+  </div>
+  
+  <main id="memoryPalace" class="memory-palace">
+    <!-- 여기에 메모리 팰리스 내용이 삽입됩니다 -->
+  </main>
+  
+  <script>
+    // 간단한 상호작용 스크립트
+    document.addEventListener('DOMContentLoaded', function() {
+      // 아이템 클릭 시 원본 URL로 이동
+      document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('click', function() {
+          const url = this.dataset.url;
+          if (url) window.open(url, '_blank');
+        });
+        
+        // 호버 효과 확장
+        item.addEventListener('mouseenter', function() {
+          this.style.filter = 'blur(0)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.filter = 'blur(3px)';
+        });
+      });
+      
+      // 방 호버 효과
+      document.querySelectorAll('.room').forEach(room => {
+        room.addEventListener('mouseenter', function() {
+          this.style.zIndex = '20';
+          this.style.transform = 'scale(1.05)';
+        });
+        
+        room.addEventListener('mouseleave', function() {
+          this.style.zIndex = '10';
+          this.style.transform = 'scale(1)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
