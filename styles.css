@@ -1,0 +1,328 @@
+@font-face {
+    font-family: 'grotesk';
+    src: url('font/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Eiko';
+    src: url('font/PPEiko-Thin.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'EikoIt';
+    src: url('font/PPEiko-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Druid';
+    src: url('font/NaNDruid-Thin-TRIAL.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%; /* Force full height */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+body {
+    font-family: 'Eiko', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distributes space evenly */
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.title {
+    font-family: 'EikoIt', serif;
+    font-size: 11.2vw;
+    letter-spacing: -2%;
+    text-align: center;
+    line-height: 0.9;
+    width: 100%;
+    margin-top: 1vh;
+    margin-bottom: 0;
+}
+
+.conversation-container {
+    display: flex;
+    width: 100%;
+    padding: 0 1vw;
+    box-sizing: border-box;
+    margin-bottom: 1vh; /* Add bottom margin for spacing from edge */
+    align-self: flex-end; /* Align to bottom */
+    flex-grow: 1; /* Allow container to grow to fill space */
+    align-items: flex-end; /* Align content to bottom */
+}
+
+.left-content {
+    width: 30%;
+    padding-right: 2vw;
+    padding-bottom: 1vh; /* Add padding to bottom */
+    align-self: flex-end; /* Align to bottom */
+}
+
+.conversation-text {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.warn {
+    font-size: .9rem;
+}
+
+.keyword{
+    text-decoration: underline;
+}
+.chairs-container {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Align to bottom */
+    margin: 0;
+    padding-bottom: 1vh; /* Add padding to bottom */
+    position: relative; /* For absolute positioning of messages */
+}
+
+/* 메시지 공통 스타일 */
+.waiting-status, .start-chat-message {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Druid',serif;
+    font-size: 1rem;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 1;
+}
+
+/* 대기 메시지 특화 스타일 */
+.waiting-status {
+    animation: pulse 2s infinite;
+}
+
+/* 채팅 시작 메시지 특화 스타일 */
+.start-chat-message {
+    animation: fadeInOut 1.5s ease-in-out;
+}
+
+.chair {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Changed from transform to all for opacity transition */
+    width: 45%;
+    max-width: 100%;
+}
+
+/* 의자 이미지만 오파시티 적용 */
+.chair-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.chair.occupied .chair-img {
+    opacity: 0.3; /* 오파시티 30%로 이미지에만 설정 */
+}
+
+.chair:hover {
+    transform: scale(1.05);
+}
+
+.chair.highlight {
+    transform: scale(1.05);
+}
+
+#chair1 {
+    transform: rotate(-5deg);
+    margin-right: 2vw;
+}
+
+#chair2 {
+    transform: rotate(5deg);
+    margin-left: 2vw;
+}
+
+#chair1:hover {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+#chair2:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+/* 선택된 의자 스타일 */
+.chair.occupied {
+    cursor: default;
+}
+
+#chair1.occupied:hover {
+    transform: rotate(-5deg);
+}
+
+#chair2.occupied:hover {
+    transform: rotate(5deg);
+}
+
+.chair-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: calc(1.5rem + 1vw);
+    font-weight: bold;
+    color: #000;
+}
+
+/* Side text on chairs */
+.chair::before, .chair::after {
+    content: attr(data-side-text);
+    position: absolute;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: calc(0.6rem + 0.2vw);
+    width: 20px;
+    white-space: nowrap;
+}
+
+.chair::before {
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.chair::after {
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 애니메이션 정의 */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    20% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    80% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .conversation-container {
+        padding: 0 3vw;
+    }
+    
+    .waiting-status, .start-chat-message {
+        font-size: 0.8rem;
+        padding: 12px 18px;
+    }
+}
+
+@media (max-width: 900px) {
+    .conversation-container {
+        flex-direction: column;
+        padding: 0 5vw;
+    }
+    
+    .left-content, .chairs-container {
+        width: 100%;
+        padding-bottom: 3vh;
+    }
+    
+    .left-content {
+        margin-bottom: 2rem;
+    }
+    
+    .title {
+        font-size: 15vw;
+        margin-bottom: 1rem;
+    }
+    
+    .chairs-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .chair {
+        width: 45%;
+    }
+    
+    .waiting-status, .start-chat-message {
+        top: -50px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 18vw;
+    }
+    
+    .conversation-text {
+        font-size: calc(0.9rem + 0.3vw);
+    }
+    
+    .waiting-status, .start-chat-message {
+        top: -40px;
+        width: 80%;
+        text-align: center;
+    }
+}
+
+@media (max-height: 700px) {
+    .title {
+        font-size: 12vw; /* Smaller title on short screens */
+    }
+    
+    .conversation-text {
+        font-size: 0.8rem; /* Smaller text on short screens */
+    }
+    
+    .waiting-status, .start-chat-message {
+        top: -35px;
+        padding: 8px 15px;
+    }
+}
